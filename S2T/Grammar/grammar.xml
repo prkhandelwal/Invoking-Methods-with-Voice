@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<grammar
+  version="1.0"
+  xml:lang="en-US"
+  root="automationCommands"
+  xmlns="http://www.w3.org/2001/06/grammar"
+  tag-format="semantics/1.0">
+
+  <rule id="root">
+    <item>
+      <ruleref uri="#automationCommands"/>
+      <tag>out.command=rules.latest();</tag>
+    </item>
+  </rule>
+
+  <rule id="automationCommands">
+    <item>
+      <item> Hey </item>
+      <item>
+        <ruleref uri="#commandActions" />
+        <tag> out.cmd=rules.latest(); </tag>
+      </item>
+    </item>
+  </rule>
+  
+
+  <rule id="commandActions">
+    <one-of>
+      <item>
+        Cortana <tag> out="CORTANA"; </tag>
+      </item>
+      <item>
+        Alexa <tag> out="ALEXA"; </tag>
+      </item>
+    </one-of>
+  </rule>
+</grammar>

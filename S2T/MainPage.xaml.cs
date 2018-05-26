@@ -95,15 +95,21 @@ namespace S2T
             {
                 Debug.WriteLine("Hi I am Alexa");
             }
+
             if(assistant.Equals("CORTANA"))
             {
                 Debug.WriteLine("Hi I am Cortana");
-                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                await Task.Factory.StartNew(async () =>
                 {
+                    await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                    {
+                        await recognizer.ContinuousRecognitionSession.PauseAsync();
+                        await StartListen();
+                        recognizer.ContinuousRecognitionSession.Resume();
 
-                    StartListen();
-
+                    });
                 });
+                
             }
         }
 
@@ -116,7 +122,7 @@ namespace S2T
             }
         }
 
-        private async void StartListen()
+        private async Task StartListen()
         {
             var speechRecognizer = new Windows.Media.SpeechRecognition.SpeechRecognizer();
 

@@ -96,9 +96,9 @@ namespace S2T
                 Debug.WriteLine("Hi I am Alexa");
             }
 
-            if(assistant.Equals("CORTANA"))
+            if(assistant.Equals("MARCO"))
             {
-                Debug.WriteLine("Hi I am Cortana");
+                Debug.WriteLine("Hi I am MARCO");
                 await Task.Factory.StartNew(async () =>
                 {
                     await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
@@ -130,54 +130,28 @@ namespace S2T
 
             speechRecognizer.UIOptions.IsReadBackEnabled = false;
 
+            speechRecognizer.UIOptions.ExampleText = "Turn on the lights";
+
             Windows.Media.SpeechRecognition.SpeechRecognitionResult speechRecognitionResult = await speechRecognizer.RecognizeWithUIAsync();
 
             var messageDialog = new Windows.UI.Popups.MessageDialog(speechRecognitionResult.Text, "Text spoken");
 
             await messageDialog.ShowAsync();
-
-            // The media object for controlling and playing audio.
-            MediaElement mediaElement = new MediaElement();
-
-            // The object for controlling the speech synthesis engine (voice).
-            var synth = new Windows.Media.SpeechSynthesis.SpeechSynthesizer();
-
-            // Generate the audio stream from plain text.
-            SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(speechRecognitionResult.Text);
-
-            // Send the stream to the media object.
-            mediaElement.SetSource(stream, stream.ContentType);
-            mediaElement.Play();
         }
 
         private async void Start_Click(object sender, RoutedEventArgs e)
         {
-            //var language = new Windows.Globalization.Language("hi-in");
-            var speechRecognizer = new Windows.Media.SpeechRecognition.SpeechRecognizer();
+            Debug.WriteLine("Hi I am Cortana");
+            await Task.Factory.StartNew(async () =>
+            {
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                {
+                    await recognizer.ContinuousRecognitionSession.PauseAsync();
+                    await StartListen();
+                    recognizer.ContinuousRecognitionSession.Resume();
 
-            await speechRecognizer.CompileConstraintsAsync();
-
-            speechRecognizer.UIOptions.IsReadBackEnabled = false;
-
-            Windows.Media.SpeechRecognition.SpeechRecognitionResult speechRecognitionResult = await speechRecognizer.RecognizeWithUIAsync();
-
-            var messageDialog = new Windows.UI.Popups.MessageDialog(speechRecognitionResult.Text, "Text spoken");
-
-            await messageDialog.ShowAsync();
-
-            // The media object for controlling and playing audio.
-            MediaElement mediaElement = new MediaElement();
-
-            // The object for controlling the speech synthesis engine (voice).
-            var synth = new Windows.Media.SpeechSynthesis.SpeechSynthesizer();
-
-            // Generate the audio stream from plain text.
-            SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(speechRecognitionResult.Text);
-
-            // Send the stream to the media object.
-            mediaElement.SetSource(stream, stream.ContentType);
-            mediaElement.Play();
-
+                });
+            });
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)

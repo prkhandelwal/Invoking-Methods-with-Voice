@@ -27,7 +27,7 @@
   <rule id="commandActions">
     <one-of>
       <item>
-        Cortana <tag> out="CORTANA"; </tag>
+        Marco <tag> out="MARCO"; </tag>
       </item>
       <item>
         Alexa <tag> out="ALEXA"; </tag>

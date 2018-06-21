@@ -107,7 +107,10 @@
     <None Include="S2T_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Grammar\grammar.xml" />
+    <Content Include="Grammar\grammar.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -14,13 +14,19 @@
   </rule>
 
   <rule id="automationCommands">
-    <item>
-      <item> Hey </item>
+    <one-of>
       <item>
-        <ruleref uri="#commandActions" />
-        <tag> out.cmd=rules.latest(); </tag>
+        <item> Hey </item>
+        <item>
+          <ruleref uri="#commandActions" />
+          <tag> out.cmd=rules.latest(); </tag>
+        </item>
       </item>
-    </item>
+      <item>
+        <ruleref uri="#spellActions" />
+        <tag> out.cmd = rules.latest(); </tag>
+      </item>
+    </one-of>
   </rule>
   
 
@@ -34,4 +40,17 @@
       </item>
     </one-of>
   </rule>
+
+  <rule id ="spellActions">
+    <one-of>
+      <item>
+        Lumos <tag>out="LUMOS"</tag>
+      </item>
+      <item>
+        Lumos Maxima <tag>out="LUMOSMAX"</tag>
+      </item>
+    </one-of>
+  </rule>
+  
+
 </grammar>

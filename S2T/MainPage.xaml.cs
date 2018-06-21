@@ -111,6 +111,26 @@ namespace S2T
                 });
                 
             }
+
+            if (assistant.Equals("LUMOS"))
+            {
+                Debug.WriteLine("Switching on the lights");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                {
+                    await Speak("Switching on the lights");
+                });
+
+            }
+
+            if (assistant.Equals("LUMOSMAX"))
+            {
+                Debug.WriteLine("Switching on all the lights");
+                await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                {
+                    await Speak("Switching on all the lights");
+                });
+
+            }
         }
 
         private async void RecognizerStateChanged(SpeechRecognizer sender, SpeechRecognizerStateChangedEventArgs args)
@@ -157,6 +177,23 @@ namespace S2T
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private static async Task Speak(string s)
+        {
+            // The media object for controlling and playing audio.
+
+            MediaElement mediaElement = new MediaElement();
+
+            // The object for controlling the speech synthesis engine (voice).
+            var synth = new Windows.Media.SpeechSynthesis.SpeechSynthesizer();
+
+            // Generate the audio stream from plain text.
+            SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(s);
+
+            // Send the stream to the media object.
+            mediaElement.SetSource(stream, stream.ContentType);
+            mediaElement.Play();
         }
 
     }

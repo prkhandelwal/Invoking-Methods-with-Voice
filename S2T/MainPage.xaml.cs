@@ -91,9 +91,9 @@ namespace S2T
                             args.Result.SemanticInterpretation.Properties["cmd"][0].ToString() :
                             "";
 
-            if(assistant.Equals("ALEXA"))
+            if(assistant.Equals("SANZA"))
             {
-                Debug.WriteLine("Hi I am Alexa");
+                Debug.WriteLine("Hi I am Sanza");
             }
 
             if(assistant.Equals("MARCO"))
